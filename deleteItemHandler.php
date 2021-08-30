@@ -4,14 +4,13 @@
     $mysql_user = "root";
     $mysql_password = "root";
     $id = $_GET['id'];
-    $itemName = $_POST['name'];
-    $itemQuantity = $_POST['quantity'];
 
     // Page Header
-    echo "<html>
+    echo '<html>
 	   <head>
 	       <title>Delete Success</title>
-	   </head>";
+           <link rel="stylesheet" type="text/css" href="styles.css">
+	   </head>';
 
     // Create connection
     $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);

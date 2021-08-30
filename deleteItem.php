@@ -6,6 +6,10 @@ $mysql_database = "cst-323";
 $mysql_user = "root";
 $mysql_password = "root";
 
+echo '<head><title>Delete Confirmation</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+      </head>';
+
 // Create connection
 $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
 
@@ -35,8 +39,8 @@ echo '<form action="deleteItemHandler.php?id=' .$id . '" method="POST">
 		<label for="fname">Item name:</label><br>
 		<input type="text" id="name" name="name" value="' . $name .'" required><br><br>
 		<label for="lname">Item Quantity:</label><br>
-		<input type="text" id="quantity" name="quantity" value="' . $quantity . '" required><br><br>
-        <h1>ARE YOU SURE YOU WANT TO DELETE THIS ITEM?</h1><br><br>
+		<input type="text" id="quantity" name="quantity" value="' . $quantity . '" required><br><br><br>
+        <h2 align="left">ARE YOU SURE YOU WANT TO DELETE THIS ITEM?</h2><br>
 		<input type="submit" value="Yes">
 	  </form>
       <form action="displayInventory.php" method="post">

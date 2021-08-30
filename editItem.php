@@ -6,6 +6,11 @@
     $mysql_user = "root";
     $mysql_password = "root";
     
+    echo '<head>
+            <title>Edit Item</title>
+            <link rel="stylesheet" type="text/css" href="styles.css">
+          </head>';
+    
     // Create connection
     $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
     

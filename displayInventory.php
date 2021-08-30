@@ -5,10 +5,11 @@
     $mysql_password = "root";
     
     // Page Header
-    echo "<html>
+    echo '<html>
 	   <head>
 	       <title>View Inventory</title>
-	   </head>";
+           <link rel="stylesheet" type="text/css" href="styles.css">
+	   </head>';
     
     // Create connection
     $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);

@@ -3,13 +3,14 @@
     $mysql_database = "cst-323";
     $mysql_user = "root";
     $mysql_password = "root";
+    $id = $_GET['id'];
     $itemName = $_POST['name'];
     $itemQuantity = $_POST['quantity'];
     
     // Page Header
     echo "<html>
 	   <head>
-	       <title>New Item Success</title>
+	       <title>Edit Success</title>
 	   </head>";
     
     // Create connection
@@ -20,19 +21,18 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     
-    $sql = "INSERT INTO `inventory` (ITEM_NAME, ITEM_QUANTITY) VALUES ('$itemName', '$itemQuantity');";
+    // SQL update statement
+    $sql = "UPDATE `inventory` SET `ITEM_NAME` = '" . $itemName . "', `ITEM_QUANTITY` = '" . $itemQuantity . "' WHERE `ID` = " . $id . ";";
     
     if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
+        echo "Item edited successfully";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     
     mysqli_close($conn);
+
     
     echo "<footer>
-	   <br><br><a href='index.html'>Home Page</a></footer>
-        <br><br><a href='displayInventory.php'>Inventory Page</a></footer></html>";
-  
-    
-?>
+	<br><br><a href='index.html'>Home Page</a></footer>
+    <br><br><a href='displayInventory.php'>Inventory Page</a></footer></html>";

@@ -1,0 +1,23 @@
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    background-color: #ffd269;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+a {
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #b647ff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2.5px 2.5px rgba(0,0,0,0.24);
+    transition: box-shadow .3s;
+    border-radius: 4px;
+}
+
+a:hover {
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.24);
+}

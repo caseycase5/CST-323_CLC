@@ -11,24 +11,42 @@
 	       <title>Delete Success</title>
            <link rel="stylesheet" type="text/css" href="styles.css">
 	   </head>';
+	
+	try{
+		// Create connection
+		$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
 
-    // Create connection
-    $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
+		// Check connection
+		if (!$conn) {
+			die("Connection failed: " . mysqli_connect_error());
+			throw new Exception("SQL Connection Failed: " . mysqli_error($conn), 300);
+		}
+	}catch (Exception $e){
+		$datetime = new DateTime();
+		$datetime->setTimezone(new DateTimeZone('UTC'));
+		$logentry = $datetime->format('Y/m/d H:i:s') . ' ' . $e;
+		
+		//log to default error_log destination
+		error_log($logentry);
+	}
+	try{
+		// SQL delete statement
+		$sql = "DELETE FROM `inventory` WHERE `ID` = " . $id . ";";
 
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // SQL delete statement
-    $sql = "DELETE FROM `inventory` WHERE `ID` = " . $id . ";";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "Item deleted successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-    }
-
+		if (mysqli_query($conn, $sql)) {
+			echo "Item deleted successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			throw new Exception("SQL Query Failed: " . mysqli_error($conn), 250);
+		}
+	}catch (Exception $e){
+		$datetime = new DateTime();
+		$datetime->setTimezone(new DateTimeZone('UTC'));
+		$logentry = $datetime->format('Y/m/d H:i:s') . ' ' . $e;
+		
+		//log to default error_log destination
+		error_log($logentry);
+	}
     mysqli_close($conn);
 
 

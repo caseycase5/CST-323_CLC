@@ -1,4 +1,22 @@
 <!DOCTYPE html>
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\LineFormatter; 
+
+$handler = new StreamHandler(__DIR__.'/server.log', Logger::DEBUG); 
+$handler->setFormatter(new LineFormatter());
+
+$logger = new Logger('SimpleLogger');
+$logger->pushHandler($handler);
+$datetime = new DateTime();
+$datetime->setTimezone(new DateTimeZone('UTC'));
+$logentry = $datetime->format('Y/m/d H:i:s') . ' ' . "Home Page Loaded Successfully.";
+$logger->info($logentry);
+?>
+
 <html>
 	<head>
 	<meta charset="ISO-8859-1">

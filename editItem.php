@@ -10,30 +10,47 @@
             <title>Edit Item</title>
             <link rel="stylesheet" type="text/css" href="styles.css">
           </head>';
-    
-    // Create connection
-    $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
-    
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    
+    try{
+		// Create connection
+		$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_database);
+		
+		// Check connection
+		if (!$conn) {
+			die("Connection failed: " . mysqli_connect_error());
+			throw new Exception("SQL Connection Failed: " . mysqli_error($conn), 300);
+		}
+    }catch (Exception $e){
+		$datetime = new DateTime();
+		$datetime->setTimezone(new DateTimeZone('UTC'));
+		$logentry = $datetime->format('Y/m/d H:i:s') . ' ' . $e;
+		
+		//log to default error_log destination
+		error_log($logentry);
+	}
     $sql = "SELECT `ID`, `ITEM_NAME`, `ITEM_QUANTITY` FROM `inventory` WHERE `ID` = " . $id . ";";
     
-    $result = $conn->query($sql);
-    
-    // Printing results to a table
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            $name = $row["ITEM_NAME"];
-            $quantity = $row["ITEM_QUANTITY"];
-        }
-    } else {
-        echo "Error finding item.";
-    }
-    
+	try{
+		$result = $conn->query($sql);
+		
+		// Printing results to a table
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$name = $row["ITEM_NAME"];
+				$quantity = $row["ITEM_QUANTITY"];
+			}
+		} else {
+			echo "Error finding item.";
+			throw new Exception("SQL Return No Items from Table: " . mysqli_error($conn), 200);
+		}
+    }catch (Exception $e){
+		$datetime = new DateTime();
+		$datetime->setTimezone(new DateTimeZone('UTC'));
+		$logentry = $datetime->format('Y/m/d H:i:s') . ' ' . $e;
+		
+		//log to default error_log destination
+		error_log($logentry);
+	}
     echo "<h1>Edit Item</h1>";
     
     echo '<form action="editItemHandler.php?id=' .$id . '" method="post">
